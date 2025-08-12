@@ -1,0 +1,74 @@
+.wrapper {
+  position: absolute;
+  inset: 0;
+}
+
+.map {
+  height: 100%;
+  width: 100%;
+}
+
+.grayTiles {
+  filter: grayscale(100%) contrast(1.05);
+}
+
+.overlayControls {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 1000;
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.legend {
+  background: rgba(255,255,255,0.9);
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.legendTitle {
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+.gradientBar {
+  width: 160px;
+  height: 10px;
+  background: linear-gradient(90deg, #0000ff, #00ffff, #00ff00, #ffff00, #ff0000);
+  border-radius: 4px;
+}
+.legendScale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  margin-top: 4px;
+}
+
+.timeToggle {
+  background: rgba(255,255,255,0.9);
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.timeToggle button {
+  margin-right: 6px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+  background: #fff;
+}
+.timeToggle button:last-child { margin-right: 0; }
+.timeToggle .active {
+  background: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
+
+.status {
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  padding: 6px 8px;
+  border-radius: 6px;
+}

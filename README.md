@@ -1,69 +1,62 @@
-# React + TypeScript + Vite
+# Rainbow Radar 🌈
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive web application that displays real-time rainbow probability predictions on a grayscale map using meteorological data and solar geometry.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Interactive Map**: Full-screen Leaflet map with grayscale OpenStreetMap tiles
+- **Rainbow Heatmap**: Color-coded probability overlay (blue → green → yellow → red)
+- **Geolocation**: Auto-centers on user location with city-scale zoom
+- **Place Search**: Search any location using Nominatim geocoding
+- **Solar Physics**: Accurate sun position and rainbow geometry calculations
+- **Weather Integration**: Real-time data from OpenWeatherMap One Call 3.0 API
+- **Time Forecast**: Toggle between Now/+1h/+2h predictions
+- **Responsive Design**: Clean UI with legend and status indicators
 
-## Expanding the ESLint configuration
+## Technology Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Frontend**: React + TypeScript + Vite
+- **Mapping**: Leaflet + leaflet.heat for heatmap visualization
+- **Styling**: CSS Modules
+- **APIs**: OpenWeatherMap, Nominatim (OpenStreetMap)
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Physics Implementation
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+Rainbow probability calculation based on:
+- Solar elevation and azimuth angles (NOAA algorithms)
+- Antisolar point geometry and 42° rainbow scattering angle
+- Weather conditions: rain intensity, cloud coverage, visibility
+- Bearing alignment between user→cell direction and antisolar azimuth
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Quick Start
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Environment Variables
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Optional: Create `.env` file with your OpenWeatherMap API key:
 ```
+VITE_OWM_API_KEY=your_api_key_here
+```
+(Falls back to included demo key if not provided)
+
+## How It Works
+
+1. **Location Detection**: Requests user geolocation permission
+2. **Weather Fetch**: Retrieves current and hourly weather data
+3. **Grid Generation**: Creates a 25km radius sampling grid around user
+4. **Probability Calculation**: Computes rainbow likelihood for each grid cell using meteorological and solar data
+5. **Visualization**: Renders color-coded heatmap overlay on the map
+
+## License
+
+MIT License - see LICENSE file for details.
